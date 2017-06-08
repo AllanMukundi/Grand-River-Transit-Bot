@@ -5,19 +5,20 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const app = express();
 const request = require('request');
-const aiBot = require('apiai')(''); // remove from production
+const aiBot = require('apiai')(process.env.API_AI);
+const http = require('http');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const server = app.listen(process.env.PORT || , () => {
+const server = app.listen(process.env.PORT || 8080, () => {
   console.log('Listening on port %d in %s mode',
               server.address().port, app.settings.env);
 })
 
 // Routing
 app.get('/grt', (req, res) => {
-  if (req.query['hub.mode'] && req.query['hub.verify_token'] === '') { // remove from production
+  if (req.query['hub.mode'] && req.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
     res.status(200).send(req.query['hub.challenge']);
   } else {
     res.status(403).end();
@@ -72,7 +73,7 @@ app.post('/transit', (req, res) => {
         return res.json({
           speech: stops,
           displayText: stops,
-          source: ''
+          source: 'transit'
         });
       } else {
         return res.status(400).json({
@@ -90,7 +91,7 @@ function sendMessage(event) {
   let text = event.message.text;
 
   let apiai = aiBot.textRequest(text, {
-    sessionId: ''
+    sessionId: 'testing'
   });
 
   apiai.on('response', (response) => {
@@ -98,7 +99,7 @@ function sendMessage(event) {
 
     request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
-      qs: {access_token: ''},
+      qs: {access_token: process.env.PAGE_TOKEN},
       method: 'POST',
       json: {
         recipient: {id: sender},
