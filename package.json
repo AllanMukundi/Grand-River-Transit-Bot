@@ -1,0 +1,33 @@
+{
+  "name": "grt-bot",
+  "version": "1.0.0",
+  "description": "Facebook Messenger Bot which yields real-time bus information to users.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AllanMukundi/Grand-River-Transit-Bot.git"
+  },
+  "keywords": [
+    "Facebook",
+    "Messenger",
+    "Bot",
+    "Chatbot",
+    "JavaScript",
+    "Node.js",
+    "Express.js"
+  ],
+  "author": "Allan Mukundi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AllanMukundi/Grand-River-Transit-Bot/issues"
+  },
+  "homepage": "https://github.com/AllanMukundi/Grand-River-Transit-Bot#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "request": "^2.81.0"
+  }
+}
